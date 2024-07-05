@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const uri =
   "mongodb+srv://peaceoloruntoba22:UVHqmrvl4q0ACtOx@cluster0.dzjss5e.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
