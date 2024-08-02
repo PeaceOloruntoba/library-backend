@@ -1,4 +1,5 @@
-import mongoose, {Schema} from "mongoose";
+import mongoose, { Schema } from "mongoose";
+import { hash, compare, genSalt } from "bcrypt";
 
 const userSchema = new Schema(
   {
@@ -26,5 +27,11 @@ const userSchema = new Schema(
   },
   { timeStamps: true }
 );
+
+userSchema?.pre("save", async function (next) {
+  if (!this?.isModified("password")) return next();
+  const salt = await genSalt(16);
+  this?.password = await hash(this?.password, salt);
+});
 
 export const UserModel = mongoose.model("User", userSchema);
