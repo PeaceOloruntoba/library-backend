@@ -6,6 +6,14 @@ const authRouter = Router();
 
 authRouter.post("/signup", newUserValidator, createUser);
 authRouter.post("/signin", newUserValidator, signin);
-authRouter.get("/private", privateResponse);
+authRouter.get(
+  "/private",
+  (req, res, next) => {
+    const authorizationToken = req.headers.authorization;
+    const token = authorizationToken?.split("Bearer ");
+    console.log(token);
+  },
+  privateResponse
+);
 
 export default authRouter;
