@@ -27,3 +27,7 @@ export const signin = async (req, res) => {
 export const privateResponse = async (req, res) => {
   res.json({ message: "Cool man you're in the private property" });
 };
+
+export const adminResponse = async (req, res) => {
+  res.json({ message: "Cool man you're in the admin property" });
+};
