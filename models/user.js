@@ -28,10 +28,10 @@ const userSchema = new Schema(
   { timeStamps: true }
 );
 
-userSchema?.pre("save", async function (next) {
-  if (!this?.isModified("password")) return next();
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
   const salt = await genSalt(16);
-  this.password = await hash(this?.password, salt);
+  this.password = await hash(this.password, salt);
 });
 
 export const UserModel = mongoose.model("User", userSchema);
