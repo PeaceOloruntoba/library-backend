@@ -3,7 +3,7 @@ import pkg from "jsonwebtoken";
 const { JsonWebTokenError } = pkg;
 import { UserModel } from "../models/user.js";
 
-export const authorizATion = async (req, res, next) => {
+export const userAuthorization = async (req, res, next) => {
   try {
     const authorizationToken = req.headers.authorization;
     const token = authorizationToken?.split("Bearer ")[1];
