@@ -1,4 +1,6 @@
-import jwt, { JsonWebTokenError } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
+import pkg from "jsonwebtoken";
+const { JsonWebTokenError } = pkg;
 import { UserModel } from "../models/user.js";
 
 export const authorizATion = async (req, res, next) => {
