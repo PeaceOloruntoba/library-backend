@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createUser } from "../controllers/auth.js";
+import { createUser, signin } from "../controllers/auth.js";
 import { newUserValidator } from "../middleware/validator.js";
 
 const authRouter = Router();
