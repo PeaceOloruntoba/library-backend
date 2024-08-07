@@ -1,4 +1,6 @@
-const authorization = async (req, res, next) => {
+import jwt from "jsonwebtoken";
+
+const authorizATion = async (req, res, next) => {
   const authorizationToken = req.headers.authorization;
   const token = authorizationToken?.split("Bearer ")[1];
   if (!token) return res.status(403).json({ error: "unauthorized access!" });
@@ -8,3 +10,4 @@ const authorization = async (req, res, next) => {
   req.user = user;
   next();
 };
+export default authorizATion;
