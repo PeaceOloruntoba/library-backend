@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createUser, privateResponse, signin } from "../controllers/auth.js";
+import { adminResponse, createUser, privateResponse, signin } from "../controllers/auth.js";
 import { newUserValidator } from "../middleware/validator.js";
 import { authorizATion } from "../middleware/authorization.js";
 import { adminAuthorization } from "../middleware/adminAuthorization.js";
