@@ -2,8 +2,7 @@ import { Router } from "express";
 import { createUser, privateResponse, signin } from "../controllers/auth.js";
 import { newUserValidator } from "../middleware/validator.js";
 import jwt from "jsonwebtoken";
-import { UserModel } from "../models/user.js";
-import authorizATion from "../middleware/authorization.js";
+import { authorizATion } from "../middleware/authorization.js";
 
 const authRouter = Router();
 
