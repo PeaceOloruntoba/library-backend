@@ -34,4 +34,8 @@ userSchema.pre("save", async function (next) {
   this.password = await hash(this.password, salt);
 });
 
+userSchema.methods.comparePassword = async function (password) {
+  return await compare(password, this.password);
+};
+
 export const UserModel = mongoose.model("User", userSchema);
