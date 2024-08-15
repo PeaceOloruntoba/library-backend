@@ -3,7 +3,10 @@ import "./db/index.js";
 import authRouter from "./routes/auth.js";
 import bookRouter from "./routes/book.js";
 import adminRoute from "./routes/adminRoute.js";
-import { userAuthorization } from "./middleware/authorization.js";
+import {
+  adminAuthorization,
+  userAuthorization,
+} from "./middleware/authorization.js";
 
 const app = express();
 
@@ -11,7 +14,7 @@ app.use(express.json());
 
 app.use("/auth", authRouter);
 app.use("/", bookRouter);
-app.use("/admin", userAuthorization, adminRoute);
+app.use("/admin", userAuthorization, adminAuthorization, adminRoute);
 
 app.get("/", (req, res) => {
   res.json({

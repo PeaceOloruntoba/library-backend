@@ -22,3 +22,10 @@ export const userAuthorization = async (req, res, next) => {
   }
 };
 
+export const adminAuthorization = (req, res, next) => {
+  if (req.user && req.user?.role === "admin") {
+    next();
+  } else {
+    res.status(403).json({ error: "Access denied! Admins only." });
+  }
+};
