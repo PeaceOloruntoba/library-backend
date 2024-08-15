@@ -6,13 +6,18 @@ const bookSchema = new Schema(
     name: {
       type: String,
       trim: true,
-      required: [true, "Please enter the name of the book."],
+      required: [true, "Please enter the name/title of the book."],
     },
     description: {
       type: String,
       trim: true,
       required: [true, "Please provide a brief description about the book."],
       unique: true,
+    },
+    author: {
+      type: String,
+      trim: true,
+      required: [true, "Please who write the book."],
     },
     file: {
       type: Schema.Types.ObjectId,

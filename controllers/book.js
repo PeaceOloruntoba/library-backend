@@ -1,7 +1,7 @@
 import { BookModel } from "../models/book.js";
 
 export const createBook = async (req, res) => {
-  const { name, description } = req.body;
+  const { name, description, author } = req.body;
   const file = req.file;
   if (!file) {
     return res.status(400).json({ error: "Please upload a file." });
@@ -9,11 +9,14 @@ export const createBook = async (req, res) => {
   try {
     const oldBook = await BookModel.findOne({ name });
     if (oldBook)
-      return res.status(403).json({ error: "Book with this name already exists" });
+      return res
+        .status(403)
+        .json({ error: "Book with this name/title already exists" });
 
     const book = await BookModel.create({
       name,
       description,
+      author,
       file: file.id,
     });
     res.json({ success: true, book });
@@ -46,7 +49,7 @@ export const fetchBook = async (req, res) => {
 
 export const updateBook = async (req, res) => {
   const { id } = req.params;
-  const { name, description } = req.body;
+  const { name, description, author } = req.body;
   const file = req.file;
   try {
     const book = await BookModel.findById(id);
@@ -55,6 +58,7 @@ export const updateBook = async (req, res) => {
     }
     book.name = name || book.name;
     book.description = description || book.description;
+    book.author = author || book.author;
     if (file) {
       book.file = file.id;
     }
