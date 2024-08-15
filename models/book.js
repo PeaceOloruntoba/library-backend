@@ -9,15 +9,15 @@ const bookSchema = new Schema(
       required: [true, "Please enter the name of the book."],
     },
     description: {
-      unique: true,
-      trim: true,
       type: String,
+      trim: true,
       required: [true, "Please provide a brief description about the book."],
+      unique: true,
     },
     file: {
       type: Schema.Types.ObjectId,
-      required: [true, "Please upload the book's PDF file."],
       ref: "uploads.files",
+      required: [true, "Please upload the book's PDF file."],
     },
   },
   { timestamps: true }
