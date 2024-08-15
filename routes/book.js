@@ -6,19 +6,33 @@ import {
   fetchBooks,
   updateBook,
 } from "../controllers/book";
-import { adminAuthorization } from "../middleware/authorization";
+import {
+  adminAuthorization,
+  userAuthorization,
+} from "../middleware/authorization";
 import upload from "../middleware/fileUploadValidator";
 
 const bookRouter = Router();
-bookRouter.post("/book", adminAuthorization, upload.single("file"), createBook);
+bookRouter.post(
+  "/book",
+  adminAuthorization,
+  userAuthorization,
+  upload.single("file"),
+  createBook
+);
 bookRouter.patch(
   "/book/:id",
   adminAuthorization,
+  userAuthorization,
   upload.single("file"),
   updateBook
 );
-bookRouter.delete("/book/:id", adminAuthorization, deleteBook);
-
+bookRouter.delete(
+  "/book/:id",
+  adminAuthorization,
+  userAuthorization,
+  deleteBook
+);
 bookRouter.get("/book", fetchBooks);
 bookRouter.get("/book/:id", fetchBook);
 
