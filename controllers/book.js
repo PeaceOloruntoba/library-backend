@@ -1,4 +1,4 @@
-import { Book, BookModelModel } from "../models/book.js";
+import { BookModel } from "../models/book.js";
 
 export const createBook = async (req, res) => {
   const { name, description } = req.body;
@@ -9,14 +9,12 @@ export const createBook = async (req, res) => {
   try {
     const oldBook = await BookModel.findOne({ name });
     if (oldBook)
-      return res
-        .status(403)
-        .json({ error: "Book with this name already exists" });
+      return res.status(403).json({ error: "Book with this name already exists" });
 
     const book = await BookModel.create({
       name,
       description,
-      file: file.path,
+      file: file.id,
     });
     res.json({ success: true, book });
   } catch (error) {
@@ -24,10 +22,9 @@ export const createBook = async (req, res) => {
   }
 };
 
-
 export const fetchBooks = async (req, res) => {
   try {
-    const books = await BookModel.find();
+    const books = await BookModel.find().populate("file");
     res.json({ success: true, books });
   } catch (error) {
     res.status(500).json({ error: "Error fetching books" });
@@ -37,7 +34,7 @@ export const fetchBooks = async (req, res) => {
 export const fetchBook = async (req, res) => {
   const { id } = req.params;
   try {
-    const book = await BookModel.findById(id);
+    const book = await BookModel.findById(id).populate("file");
     if (!book) {
       return res.status(404).json({ error: "No book with provided id" });
     }
@@ -47,10 +44,10 @@ export const fetchBook = async (req, res) => {
   }
 };
 
-
 export const updateBook = async (req, res) => {
   const { id } = req.params;
-  const { name, description, file } = req.body;
+  const { name, description } = req.body;
+  const file = req.file;
   try {
     const book = await BookModel.findById(id);
     if (!book) {
@@ -58,7 +55,9 @@ export const updateBook = async (req, res) => {
     }
     book.name = name || book.name;
     book.description = description || book.description;
-    book.file = file || book.file;
+    if (file) {
+      book.file = file.id;
+    }
     await book.save();
     res.json({ success: true, book });
   } catch (error) {
