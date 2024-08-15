@@ -7,9 +7,7 @@ import {
   updateBook,
 } from "../controllers/book";
 import { adminAuthorization } from "../middleware/authorization";
-import multer from "multer";
-
-const upload = multer({ dest: "uploads/" });
+import upload from "../middleware/fileUploadValidator";
 
 const bookRouter = Router();
 bookRouter.post("/book", adminAuthorization, upload.single("file"), createBook);
