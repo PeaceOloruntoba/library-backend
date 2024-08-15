@@ -1,7 +1,9 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 
-const uri =
-  "mongodb+srv://peaceoloruntoba22:UVHqmrvl4q0ACtOx@cluster0.dzjss5e.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+dotenv.config();
+
+const uri = process.env.MONGODB_URI;
 
 mongoose
   .connect(uri)
