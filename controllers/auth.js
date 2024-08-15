@@ -23,11 +23,3 @@ export const signin = async (req, res) => {
   const token = jwt.sign({ id: user._id.toString() }, "secret");
   res.json({ success: true, token });
 };
-
-export const privateResponse = async (req, res) => {
-  res.json({ message: "Cool man you're in the private property" });
-};
-
-export const adminResponse = async (req, res) => {
-  res.json({ message: "Cool man you're in the admin property" });
-};
