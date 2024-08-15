@@ -9,7 +9,14 @@ export const createBook = async (req, res) => {
   res.json({ success: true, book });
 };
 
-export const fetchBooks = async (req, res) => {};
+export const fetchBooks = async (req, res) => {
+  try {
+    const books = await BookModel.find();
+    res.json({ success: true, books });
+  } catch (error) {
+    res.status(500).json({ error: "Error fetching books" });
+  }
+};
 
 export const fetchBook = async (req, res) => {};
 
