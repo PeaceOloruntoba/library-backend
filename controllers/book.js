@@ -8,19 +8,20 @@ export const createBook = async (req, res) => {
   }
   try {
     const oldBook = await BookModel.findOne({ name });
-    if (oldBook)
+    if (oldBook) {
       return res
         .status(403)
         .json({ error: "Book with this name/title already exists" });
-
+    }
     const book = await BookModel.create({
       name,
       description,
       author,
-      file: file.id,
+      file: file._id,
     });
     res.json({ success: true, book });
   } catch (error) {
+    console.error("Error creating book:", error.stack);
     res.status(500).json({ error: "Error creating the book" });
   }
 };
@@ -60,11 +61,12 @@ export const updateBook = async (req, res) => {
     book.description = description || book.description;
     book.author = author || book.author;
     if (file) {
-      book.file = file.id;
+      book.file = file._id;
     }
     await book.save();
     res.json({ success: true, book });
   } catch (error) {
+    console.error("Error updating book:", error.stack);
     res.status(500).json({ error: "Error updating the book" });
   }
 };

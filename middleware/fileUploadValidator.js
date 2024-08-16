@@ -1,11 +1,27 @@
 import multer from "multer";
+import { GridFsStorage } from "multer-gridfs-storage";
+import crypto from "crypto";
+import path from "path";
+import mongoose from "mongoose";
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/");
-  },
-  filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`);
+const storage = new GridFsStorage({
+  url: process.env.MONGODB_URI,
+  file: (req, file) => {
+    return new Promise((resolve, reject) => {
+      crypto.randomBytes(16, (err, buf) => {
+        if (err) {
+          return reject(err);
+        }
+        const filename = `${buf.toString("hex")}${path.extname(
+          file.originalname
+        )}`;
+        const fileInfo = {
+          filename: filename,
+          bucketName: "uploads",
+        };
+        resolve(fileInfo);
+      });
+    });
   },
 });
 

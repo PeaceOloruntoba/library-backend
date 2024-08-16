@@ -40,4 +40,6 @@ let gfs;
 conn.once("open", () => {
   gfs = Grid(conn.db, mongoose.mongo);
   gfs.collection("uploads");
+  console.log("GridFS connection established successfully");
 });
+
