@@ -42,4 +42,3 @@ conn.once("open", () => {
   gfs.collection("uploads");
   console.log("GridFS connection established successfully");
 });
-

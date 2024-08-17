@@ -2,7 +2,10 @@ import { BookModel } from "../models/book.js";
 
 export const createBook = async (req, res) => {
   const { name, description, author } = req.body;
-  const file = req.file;
+  const { file } = req.body;
+  // console.log(req);
+  // const file = req?.file;
+  // console.log(file);
   if (!file) {
     return res.status(400).json({ error: "Please upload a file." });
   }
@@ -17,7 +20,7 @@ export const createBook = async (req, res) => {
       name,
       description,
       author,
-      file: file._id,
+      file: file.id,
     });
     res.json({ success: true, book });
   } catch (error) {
